@@ -50,9 +50,15 @@ most_recent['Title'] = link_title
 most_recent['Date'] = most_recent['Date'].dt.date
 recent_table = most_recent[['Date', 'Title', 'Author']].to_markdown()
 
-test = '![publications](lightkurve-publications.png) \n\n' + recent_table
+readme_str = f'''
+<h1>Lightkurve statistics</h1>
+  
+![publications](lightkurve-publications.png)  
+  
+{recent_table}
+'''
 text_file = open("readme.md", "w")
-n = text_file.write(test)
+n = text_file.write(readme_str)
 text_file.close()
 
 # Make a plot
