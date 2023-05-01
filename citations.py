@@ -37,14 +37,32 @@ df = pd.DataFrame({'year': years,
 mask = ~df.pub.str.contains("(Zenodo)|(Abstracts)")
 # Sort by date and reset index
 df = df[mask].sort_values('date', ascending=False).reset_index(drop=True)
+# Save raw stats
 df.to_csv('stats.csv')
 
-x = pd.date_range('2018-01-01T00:00:00Z', '2020-06-01T00:00:00Z', freq='1M')
+## Make a markdown table
+most_recent = df.sort_values('date', ascending=False).head(5)
+most_recent = most_recent.rename(columns={'date': 'Date', 'title': 'Title', 'author': 'Author'})
+link_title = []
+for index, row in most_recent.iterrows():
+    link_title.append(f'[{row.Title}](https://ui.adsabs.harvard.edu/abs/{row.bibcode}/abstract)')
+most_recent['Title'] = link_title
+most_recent['Date'] = most_recent['Date'].dt.date
+recent_table = most_recent[['Date', 'Title', 'Author']].to_markdown()
+
+test = '![publications](lightkurve-publications.png) \n' + recent_table
+text_file = open("readme.md", "w")
+n = text_file.write(test)
+text_file.close()
+
+# Make a plot
+x = pd.date_range('2018-01-01T00:00:00Z', df.date.max(), freq='1M')
 y = [len(df[df.date < d]) for d in x]
 
-fig, ax = plt.subplots()
-plt.plot(x, y, marker='o')
-plt.ylabel("Publications", fontsize=14)
+fig, ax = plt.subplots(figsize=[9, 5])
+plt.plot(x, y, marker='o', c='k')
+plt.xlabel('Year', fontsize=12)
+plt.ylabel("Publications", fontsize=12)
 locator = mdates.AutoDateLocator(minticks=3, maxticks=7)
 formatter = mdates.ConciseDateFormatter(locator)
 ax.xaxis.set_major_locator(locator)
