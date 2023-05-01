@@ -1,1 +1,1 @@
-test
+![publications](lightkurve-publications.png)

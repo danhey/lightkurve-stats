@@ -1,11 +1,13 @@
 name: run main.py
 
 # on:
-#   schedule:
-#     - cron: '0 0 * * 1' # At 00:00 on Monday
+  # schedule:
+  #   - cron: '0 0 * * 1' # At 00:00 on Monday
 
 on:
   # We always want to run tests on main
+  schedule:
+    - cron: '0 0 * * 1' # At 00:00 on Monday
   push:
     branches:
       - main
