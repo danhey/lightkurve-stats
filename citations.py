@@ -50,7 +50,7 @@ most_recent['Title'] = link_title
 most_recent['Date'] = most_recent['Date'].dt.date
 recent_table = most_recent[['Date', 'Title', 'Author']].to_markdown()
 
-test = '![publications](lightkurve-publications.png) \n\n' + recent_table
+test = '![publications](lightkurve-publications.png) \n\n  <br/>' + recent_table
 text_file = open("readme.md", "w")
 n = text_file.write(test)
 text_file.close()
