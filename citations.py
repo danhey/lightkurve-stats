@@ -3,7 +3,7 @@ import matplotlib.dates as mdates
 import pandas as pd
 import matplotlib.pyplot as plt
 
-ads.config.token = 'QS8lYy26Fzn6x7wGkMG6onjWFttQ7UeXpb6n7hs0'
+# ads.config.token = 'QS8lYy26Fzn6x7wGkMG6onjWFttQ7UeXpb6n7hs0'
 
 FIELDS = ['date', 'pub', 'id', 'volume', 'links_data', 'citation', 'doi',       
           'eid', 'keyword_schema', 'citation_count', 'data', 'data_facet',      
